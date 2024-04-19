@@ -7,6 +7,9 @@ if [ -z "$TMUX" ] && ! [ -n "$SSH_CLIENT" ] && ! [ -n "$SSH_TTY" ]; then
     tmux attach || exec tmux new-session
 fi
 
+# Run on startup
+tfetch
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -82,3 +85,8 @@ alias vi='nvim'
 alias nv='nvim'
 alias nano='nvim'
 alias furryfox='firefox'
+alias apt-get='echo nuh uh'
+alias apt='echo nuh uh'
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
