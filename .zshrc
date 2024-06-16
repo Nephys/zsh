@@ -10,9 +10,13 @@ fi
 # Run on startup
 tfetch
 
-# oh-my-posh
+# Oh-My-Posh
 eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/config.toml)"
+# Zoxide
+eval "$(zoxide init --cmd cd zsh)"
 
+
+# Plugins
 source ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -83,6 +87,3 @@ alias nano='nvim'
 alias furryfox='firefox'
 alias apt-get='echo nuh uh'
 alias apt='echo nuh uh'
-
-# Zoxide
-eval "$(zoxide init --cmd cd zsh)"
