@@ -10,23 +10,18 @@ fi
 # Run on startup
 tfetch
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# oh-my-posh
+eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/config.toml)"
+
 source ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
 # The following lines were added by compinstall
-
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
 zstyle ':completion:*' menu select=1
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-#zstyle :compinstall filename '/home/nephys/.zshrc'
 zstyle :compinstall filename "${HOME}/.zshrc"
 
 autoload -Uz compinit
@@ -35,12 +30,10 @@ compinit
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=100000
-SAVEHIST=100000
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
 # End of lines configured by zsh-newuser-install
-source ~/.config/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.config/zsh/plugins/powerlevel10k/p10k.zsh ]] || source ~/.config/zsh/plugins/powerlevel10k/p10k.zsh
 
 # Options
 setopt EXTENDED_HISTORY
@@ -53,6 +46,8 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_NO_STORE
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
+setopt APPENDHISTORY
+setopt SHAREHISTORY
 
 # Keybinds
 bindkey ' '		    magic-space				            # history expansion on space
@@ -71,6 +66,7 @@ zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:complete:*' gain-privileges 1
 
 # Aliasses
+alias update-dots='__cd=$(pwd) && cd ~/.dotfiles && git pull --recurse-submodules origin main && chmod +x install.sh && ./install.sh && cd $__cd && unset __cd'
 alias please='sudo'
 alias cls='clear'
 alias ls='ls --color=auto'
@@ -88,5 +84,5 @@ alias furryfox='firefox'
 alias apt-get='echo nuh uh'
 alias apt='echo nuh uh'
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Zoxide
+eval "$(zoxide init --cmd cd zsh)"
