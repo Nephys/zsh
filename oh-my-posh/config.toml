@@ -77,6 +77,14 @@ final_space = true
       threshold = 5000
       style = ''
 
+[[tooltips]]
+  type = 'text'
+  tips = [ 'sudo', 'su' ]
+  style = 'plain'
+  background = 'transparent'
+  foreground = 'p:red'
+  template = '<f></f>'
+
 [transient_prompt]
   background = 'transparent'
   foreground = 'p:blue'
