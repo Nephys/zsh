@@ -9,3 +9,5 @@ Make sure the following binaries are installed on your system first:
  - [tfetch](https://github.com/Nephys/tfetch) -> fetch splash screen
 
 ![prompt](./prompt.png)
+
+[my dotfiles](https://github.com/nephys/.dotfiles)
