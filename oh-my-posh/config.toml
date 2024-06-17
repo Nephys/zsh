@@ -1,0 +1,97 @@
+#:schema https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+
+version = 2
+final_space = true
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'path'
+    style = 'plain'
+    foreground = 'p:pink'
+    template = ' {{ .Path }}'
+
+    [blocks.segments.properties]
+      style = 'full'
+
+  [[blocks.segments]]
+    type = 'git'
+    style = 'plain'
+    foreground = 'p:lavender'
+    template = '<b>{{ .HEAD }}</b>'
+
+    [blocks.segments.properties]
+      branch_icon = '  '
+      cherry_pick_icon = '  '
+      commit_icon = '  '
+      fetch_status = false
+      fetch_upstream_icon = false
+      merge_icon = '  '
+      no_commits_icon = '  '
+      rebase_icon = '  '
+      revert_icon = '  '
+      tag_icon = '  '
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'session'
+    style = 'plain'
+    foreground = 'p:blue'
+    template = '{{ if .SSHSession}}󰒋{{ else if .Root }}{{ else }}{{ end }} <b>{{ .UserName }}@</b>'
+
+  [[blocks.segments]]
+    type = 'session'
+    style = 'plain'
+    foreground = 'p:text'
+    template = '<b>{{ .HostName }}</b> '
+
+  [[blocks.segments]]
+    type = 'text'
+    style = 'plain'
+    background = 'transparent'
+    foreground_templates = [
+      '{{ if eq .Code 0 }}p:green{{ end }}',
+      '{{ if gt .Code 0 }}p:red{{ end }}',
+    ]
+    template = ''
+
+[[blocks]]
+  type = 'rprompt'
+  overflow = 'hidden'
+
+  [[blocks.segments]]
+    type='executiontime'
+    style = 'plain'
+    background = 'transparent'
+    foreground = 'p:peach'
+    template = '{{ div .Ms 1000 }}s '
+
+    [blocks.segments.properties]
+      threshold = 5000
+      style = ''
+
+[transient_prompt]
+  background = 'transparent'
+  foreground = 'p:blue'
+  template = ' '
+
+[secondary_prompt]
+  background = 'transparent'
+  foreground = 'p:blue'
+  template = ''
+
+[palette]
+  lavender = '#B4BEFE'
+  pink = '#F5C2E7'
+  red = '#F38BA8'
+  green = '#A6E3A1'
+  blue = '#89B4FA'
+  peach = '#FAB387'
+  text = '#CDD6F4'

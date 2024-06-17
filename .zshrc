@@ -11,7 +11,7 @@ fi
 tfetch
 
 # Oh-My-Posh
-eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/config.toml)"
+eval "$(oh-my-posh init zsh --config $HOME/.config/zsh/oh-my-posh/config.toml)"
 # Zoxide
 eval "$(zoxide init --cmd cd zsh)"
 
