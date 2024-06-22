@@ -7,6 +7,7 @@ Make sure the following binaries are installed on your system first:
  - [oh-my-posh](https://github.com/jandedobbeleer/oh-my-posh) -> prompt theme
  - [zoxide](https://github.com/ajeetdsouza/zoxide) -> better cd
  - [tfetch](https://github.com/Nephys/tfetch) -> fetch splash screen
+ - [fzf](https://github.com/junegunn/fzf) -> command-line fuzzy finder
 
 ![prompt](./prompt.png)
 
