@@ -64,7 +64,6 @@ zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:complete:*' gain-privileges 1
 
 # Aliasses
-alias update-dots='__cd=$(pwd) && cd ~/.dotfiles && git pull --recurse-submodules origin main && chmod +x install.sh && ./install.sh && cd $__cd && unset __cd'
 alias please='sudo'
 alias cls='clear'
 alias ls='ls --color=auto'
@@ -91,6 +90,20 @@ eval "$(oh-my-posh init zsh --config $HOME/.config/zsh/oh-my-posh/config.toml)"
 # Zoxide
 eval "$(zoxide init --cmd cd zsh)"
 
+# Other custom stuff
+update-dots() {
+    current_path=$(pwd) &&
+        cd ~/.dotfiles &&
+        git pull --recurse-submodules origin main &&
+        chmod +x install.sh &&
+        ./install.sh
+
+        cd $current_path
+        unset current_path
+}
+alias update-dots=update-dots
+
+
 fzf-history() {
     selected="$(fc -rl 1 | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' | cut -c 8- | fzf)"
     LBUFFER="$selected"
@@ -98,8 +111,5 @@ fzf-history() {
     unset selected
     zle reset-prompt
 }
-
-zle     -N            fzf-history
-bindkey -M emacs '^F' fzf-history
-bindkey -M vicmd '^F' fzf-history
-bindkey -M viins '^F' fzf-history
+zle     -N          fzf-history
+bindkey '^F'        fzf-history
