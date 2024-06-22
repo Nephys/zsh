@@ -3,9 +3,15 @@
 
 
 # Attach to the previous tmux session or create a new one
-if [ -z "$TMUX" ] && ! [ -n "$SSH_CLIENT" ] && ! [ -n "$SSH_TTY" ]; then
+if [[ -z "$TMUX" && -z "$SSH_CLIENT" && -z "$SSH_TTY" ]]; then
     tmux attach || exec tmux new-session
 fi
+
+# Exit if we're neither in a tmux session nor an ssh one
+if [[ -z "$TMUX" && -z "$SSH_CLIENT" && -z "$SSH_TTY" ]]; then
+    exit
+fi
+
 
 # Run on startup
 tfetch
@@ -92,6 +98,8 @@ eval "$(zoxide init --cmd cd zsh)"
 
 # Other custom stuff
 update-dots() {
+    echo "updating dotfiles..."
+
     current_path=$(pwd) &&
         cd ~/.dotfiles &&
         git pull --recurse-submodules origin main &&
@@ -105,7 +113,10 @@ alias update-dots=update-dots
 
 
 fzf-history() {
-    selected="$(fc -rl 1 | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' | cut -c 8- | fzf)"
+    selected="$(fc -rl 1 |
+        awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' |
+        cut -c 8- |
+        fzf --layout reverse --border --info inline)"
     LBUFFER="$selected"
 
     unset selected
