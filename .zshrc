@@ -82,8 +82,24 @@ alias furryfox='firefox'
 alias apt-get='echo nuh uh'
 alias apt='echo nuh uh'
 
+# Editor
+EDITOR='nvim'
+
 # Oh-My-Posh
 eval "$(oh-my-posh init zsh --config $HOME/.config/zsh/oh-my-posh/config.toml)"
 
 # Zoxide
 eval "$(zoxide init --cmd cd zsh)"
+
+fzf-history() {
+    selected="$(fc -rl 1 | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' | cut -c 8- | fzf)"
+    LBUFFER="$selected"
+
+    unset selected
+    zle reset-prompt
+}
+
+zle     -N            fzf-history
+bindkey -M emacs '^F' fzf-history
+bindkey -M vicmd '^F' fzf-history
+bindkey -M viins '^F' fzf-history
