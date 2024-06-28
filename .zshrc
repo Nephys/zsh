@@ -72,6 +72,7 @@ zstyle ':completion:complete:*' gain-privileges 1
 # Aliasses
 alias please='sudo'
 alias cls='clear'
+alias neofetch='tfetch'
 alias ls='ls --color=auto'
 alias ll='ls -l --color=auto'
 alias la='ls -A --color=auto'
@@ -87,8 +88,10 @@ alias furryfox='firefox'
 alias apt-get='echo nuh uh'
 alias apt='echo nuh uh'
 
-# Editor
-EDITOR='nvim'
+# Exports
+export EDITOR='nvim'
+export FZF_COLOR_SCHEME='--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8'
+export FZF_DEFAULT_OPTS="--layout reverse --border --info inline --height 40% --no-scrollbar $FZF_COLOR_SCHEME"
 
 # Oh-My-Posh
 eval "$(oh-my-posh init zsh --config $HOME/.config/zsh/oh-my-posh/config.toml)"
@@ -99,7 +102,7 @@ eval "$(zoxide init --cmd cd zsh)"
 # Other custom stuff
 update-dots() {
     echo "updating dotfiles..."
-
+    
     current_path=$(pwd) &&
         cd ~/.dotfiles &&
         git pull --recurse-submodules origin main &&
@@ -116,8 +119,13 @@ fzf-history() {
     selected="$(fc -rl 1 |
         awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' |
         cut -c 8- |
-        fzf --layout reverse --border --info inline)"
-    LBUFFER="$selected"
+        fzf --scheme=history --query=$LBUFFER)"
+
+    # this is done so we dont clear the buffer
+    # when cancelling out of fzf
+    if [[ -n "$selected" ]]; then
+        LBUFFER="$selected"
+    fi
 
     unset selected
     zle reset-prompt
