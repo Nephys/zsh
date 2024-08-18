@@ -73,6 +73,7 @@ zstyle ':completion:complete:*' gain-privileges 1
 alias please='sudo'
 alias cls='clear'
 alias neofetch='tfetch'
+alias fetch='tfetch'
 alias ls='ls --color=auto'
 alias ll='ls -l --color=auto'
 alias la='ls -A --color=auto'
